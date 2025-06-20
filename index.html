@@ -8,6 +8,108 @@
     <script src="./src/main.js" defer></script>
 </head>
 <body>
+    <main class="content-container">
+        <section class="weather-window">
+            <div class="search-form-container">
+                <input class="search-input" type="text" placeholder="Enter city name" class="search-input" list="cities">
+                <datalist id="cities">
+                    <option value="Mankivka">
+                    <option value="Kyiv">
+                    <option value="Lviv">
+                </datalist>
+                <button class="search-button" type="submit" data-tooltip="Search the weather forecast for the city">Search</button>
+            </div>
+            <div class="current-day-info">
+                <div class="top-weather-section">
+                    <div class="info-headers">
+                        <div class="info-header location-header">
+                            <h2 class="header">Kyiv</h2>
+                            <span class="sub-header">Ukraine</span>
+                        </div>
 
+                        <div class="info-header temperature-header">
+                            <h1 class="header">23℃</h1>
+                            <span class="sub-header">Clear</span>
+                        </div>
+                    </div>
+                    
+                    <div class="main-picture">
+                        <picture>
+                            <img src="./assets/sun.png" alt="Image representing today's weather" width="150">
+                        </picture>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <span class="wind-detail">Wind: 13 km/h</span>
+                    <span class="humidity-detail">Humidity: 56%</span>
+                </div>
+            </div>              <div class="carousel-container">
+                <ul class="carousel">
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Today</span>
+                            <img src="./assets/sun.png" width="50" alt="Weather image">
+                            <span class="high-temperature">24℃</span>
+                            <span class="low-temperature">16℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Tue</span>
+                            <img src="./assets/sun.png" width="50" alt="Weather image">
+                            <span class="high-temperature">23℃</span>
+                            <span class="low-temperature">15℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Wed</span>
+                            <img src="./assets/cloud.png" width="50" alt="Weather image">
+                            <span class="high-temperature">22℃</span>
+                            <span class="low-temperature">14℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Thu</span>
+                            <img src="./assets/cloud.png" width="50" alt="Weather image">
+                            <span class="high-temperature">22℃</span>
+                            <span class="low-temperature">13℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Frd</span>
+                            <img src="./assets/sun.png" width="50" alt="Weather image">
+                            <span class="high-temperature">22℃</span>
+                            <span class="low-temperature">13℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Str</span>
+                            <img src="./assets/cloud.png" width="50" alt="Weather image">
+                            <span class="high-temperature">22℃</span>
+                            <span class="low-temperature">13℃</span>
+                        </div>
+                    </li>
+
+                    <li class="carousel-item">
+                        <div class="weather-brief">
+                            <span class="day">Snd</span>
+                            <img src="./assets/sun.png" width="50" alt="Weather image">
+                            <span class="high-temperature">22℃</span>
+                            <span class="low-temperature">13℃</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

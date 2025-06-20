@@ -1,0 +1,371 @@
+* {
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: 'Arial', 'Helvetica', 'Roboto';
+}
+
+body {
+    background-color: rgb(235, 232, 232);
+}
+
+.weather-window {
+    width: 70%;
+    background-color: white;
+    border:1px solid rgb(190, 187, 187);
+    border-radius: 8px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+}
+
+.search-form-container {
+    display: flex;
+}
+
+.search-input {
+    margin: 15px 8px 15px 15px;
+    padding: 6px;
+    flex: 1 1 auto;
+    min-width: 150px;
+    border: 1px solid rgb(172, 171, 171);
+    border-radius: 5px;
+}
+
+.search-button {
+    flex: 0 0 auto;
+    border: none;
+    color: white;
+    background-color: #3264cf;
+    border-radius: 5px;
+    margin: 15px 15px 15px 6px;
+    padding: 0px 10px;
+}
+
+.current-day-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+}
+
+.top-weather-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    gap: 5px;
+    top: 160px;
+    right: 130px;
+}
+
+
+.weather-details > * {
+    margin: 0;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.weather-brief {
+    margin: 10px;
+    border: 1px solid rgb(181, 178, 178);
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
+
+.low-temperature {
+    font-size: 0.9em;
+    color: rgb(71, 70, 70);
+}
+
+.carousel-container {
+    max-width: 500px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 15px;
+    padding: 20px 10px;
+    margin: 0;
+    list-style: none;
+    
+    scroll-marker-group: after;
+    
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    flex: 0 0 auto;
+}
+
+.carousel-item::scroll-marker {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    margin: 0 4px;
+}
+
+.carousel-item::scroll-marker:target-current {
+    background: #4d71dc;
+}
+
+.carousel::scroll-marker-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.info-headers {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.info-header {
+    margin: 0 0 15px 0;
+    border: none;
+    padding: 0;
+}
+
+.header {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.info-header .sub-header {
+    margin: 0;
+    color: #000000c0;
+    font-size: 0.9em;
+}
+
+.temperature-header .header {
+    font-size: 3em;
+    font-weight: 600;
+    margin: 10px 0 5px 0;
+}
+
+.main-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+
+@media screen and (max-width: 768px) {
+    * {
+        font-size: 18px;
+    }
+    
+    .weather-window {
+        width: 85%;
+    }
+    
+    .current-day-info {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .search-input {
+        margin: 12px 6px 12px 12px;
+        padding: 5px;
+    }
+    
+    .search-button {
+        margin: 12px 12px 12px 5px;
+        padding: 0px 8px;
+    }
+    
+    .weather-details {
+        top: 140px;
+        right: 100px;
+    }
+    
+    .main-picture img {
+        width: 120px;
+    }
+    
+    .temperature-header .header {
+        font-size: 2.5em;
+    }
+    
+    .carousel-container {
+        max-width: 400px;
+        margin: 15px auto;
+    }
+    
+    .carousel {
+        gap: 12px;
+        padding: 15px 8px;
+    }
+    
+    .weather-brief {
+        width: 85px;
+        padding: 4px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    * {
+        font-size: 16px;
+    }
+    
+    .weather-details {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    
+    .weather-window {
+        width: 95%;
+    }
+    
+    .current-day-info {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .search-input {
+        margin: 10px 5px 10px 10px;
+        padding: 4px;
+        min-width: 120px;
+    }
+    
+    .search-button {
+        margin: 10px 10px 10px 4px;
+        padding: 0px 6px;
+    }
+    
+    .main-picture {
+        min-width: 100px;
+    }
+    
+    .main-picture img {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        width: 120px;
+    }
+    
+    .temperature-header .header {
+        font-size: 2.2em;
+    }
+    
+    .header {
+        font-size: 1.3em;
+    }
+    
+    .carousel-container {
+        max-width: 350px;
+        margin: 12px auto;
+    }
+    
+    .carousel {
+        gap: 10px;
+        padding: 12px 6px;
+    }
+    
+    .weather-brief {
+        width: 75px;
+        padding: 3px;
+    }
+    
+    .weather-brief img {
+        width: 40px !important;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    * {
+        font-size: 14px;
+    }
+    
+    .weather-window {
+        width: 98%;
+    }
+    
+    .current-day-info {
+        padding: 10px;
+        gap: 8px;
+    }
+    
+    .search-input {
+        margin: 8px 4px 8px 8px;
+        min-width: 100px;
+    }
+    
+    .search-button {
+        margin: 8px 8px 8px 3px;
+    }
+    
+    .main-picture {
+        min-width: 80px;
+    }
+    
+    .main-picture img {
+        width: 80px;
+    }
+    
+    .temperature-header .header {
+        font-size: 1.8em;
+    }
+    
+    .header {
+        font-size: 1.1em;
+    }
+    
+    .carousel-container {
+        max-width: 300px;
+        margin: 10px auto;
+    }
+    
+    .carousel {
+        gap: 8px;
+        padding: 10px 4px;
+    }
+    
+    .weather-brief {
+        width: 65px;
+        padding: 2px;
+    }
+    
+    .weather-brief img {
+        width: 35px !important;
+    }
+    
+    .weather-brief span {
+        font-size: 0.85em;
+    }
+}
+
