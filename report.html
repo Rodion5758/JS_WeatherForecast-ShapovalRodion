@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data Report</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f4f4f4; 
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        .back-button { 
+            background-color: #3264cf; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+        }
+        .back-button:hover { 
+            background-color: #264ea3; 
+        }
+        .error { 
+            text-align: center; 
+            padding: 20px; 
+            color: #d32f2f; 
+            background: #ffebee; 
+            border-radius: 8px; 
+            margin: 20px 0; 
+        }
+        .tab-container {
+            margin-top: 20px;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .tab-button {
+            background: #ddd;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab-button.active {
+            background: #3264cf;
+            color: white;
+        }
+        
+        /* Table styles */
+        .weather-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .weather-table th, .weather-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .weather-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        .weather-table tr:hover {
+            background-color: #f1f7ff;
+        }
+        .weather-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Summary section */
+        .summary-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .summary-card {
+            flex: 1 1 200px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary-card h3 {
+            margin-top: 0;
+            color: #3264cf;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        .summary-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        .summary-label {
+            color: #666;
+        }
+        .summary-value {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Weather Data Report</h1>
+        <button class="back-button" onclick="window.location.href='./index.html'">← Back to Weather</button>
+    </div>
+    
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showTab('summary')">Summary</button>
+            <button class="tab-button" onclick="showTab('table')">Table View</button>
+        </div>
+        
+        <div id="summary-tab" class="tab-content">
+            <div class="summary-container" id="summary-container"></div>
+        </div>
+        
+        <div id="table-tab" class="tab-content" style="display:none;">
+            <table class="weather-table" id="weather-table">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Date</th>
+                        <th>Conditions</th>
+                        <th>Max Temp (°C)</th>
+                        <th>Min Temp (°C)</th>
+                        <th>Humidity (%)</th>
+                        <th>Wind (km/h)</th>
+                    </tr>
+                </thead>
+                <tbody id="weather-data"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the selected tab
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            document.querySelector(`.tab-button[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+        
+        // Get weather data from localStorage
+        function getWeatherData() {
+            try {
+                const storedData = localStorage.getItem('weatherReportData');
+                if (storedData) {
+                    return JSON.parse(storedData);
+                }
+            } catch (error) {
+                console.error('Error reading data from localStorage:', error);
+                document.body.innerHTML += `<div class="error">Error reading weather data: ${error.message}</div>`;
+            }
+            
+            return null;
+        }
+        
+        // Format date nicely
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB', {
+                weekday: 'short',
+                day: 'numeric', 
+                month: 'short', 
+                year: 'numeric'
+            });
+        }
+        
+        // Create the table view of weather data
+        function createTableView(weatherData) {
+            const tableBody = document.getElementById('weather-data');
+            tableBody.innerHTML = '';
+            
+            weatherData.forEach(day => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${day.City}</td>
+                    <td>${formatDate(day.Date)}</td>
+                    <td>${day.Conditions}</td>
+                    <td>${day.MaxTemp}</td>
+                    <td>${day.MinTemp}</td>
+                    <td>${day.Humidity}</td>
+                    <td>${day.WindSpeed}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Create summary cards for each city
+        function createSummaryView(weatherData) {
+            const summaryContainer = document.getElementById('summary-container');
+            summaryContainer.innerHTML = '';
+            
+            // Group data by city
+            const citySummaries = {};
+            
+            weatherData.forEach(day => {
+                if (!citySummaries[day.City]) {
+                    citySummaries[day.City] = {
+                        days: 0,
+                        maxTemps: [],
+                        minTemps: [],
+                        humidity: [],
+                        windSpeed: [],
+                        conditions: {}
+                    };
+                }
+                
+                const summary = citySummaries[day.City];
+                summary.days++;
+                summary.maxTemps.push(day.MaxTemp);
+                summary.minTemps.push(day.MinTemp);
+                summary.humidity.push(day.Humidity);
+                summary.windSpeed.push(day.WindSpeed);
+                
+                // Count conditions
+                if (!summary.conditions[day.Conditions]) {
+                    summary.conditions[day.Conditions] = 0;
+                }
+                summary.conditions[day.Conditions]++;
+            });
+            
+            // Calculate averages and create summary cards
+            Object.keys(citySummaries).forEach(city => {
+                const summary = citySummaries[city];
+                
+                // Calculate averages
+                const avgMaxTemp = summary.maxTemps.reduce((a, b) => a + b, 0) / summary.days;
+                const avgMinTemp = summary.minTemps.reduce((a, b) => a + b, 0) / summary.days;
+                const avgHumidity = summary.humidity.reduce((a, b) => a + b, 0) / summary.days;
+                const avgWindSpeed = summary.windSpeed.reduce((a, b) => a + b, 0) / summary.days;
+                
+                // Find most common condition
+                let mostCommonCondition = '';
+                let highestCount = 0;
+                
+                Object.keys(summary.conditions).forEach(condition => {
+                    if (summary.conditions[condition] > highestCount) {
+                        mostCommonCondition = condition;
+                        highestCount = summary.conditions[condition];
+                    }
+                });
+                
+                // Create summary card
+                const card = document.createElement('div');
+                card.className = 'summary-card';
+                
+                card.innerHTML = `
+                    <h3>${city}</h3>
+                    <div class="summary-stat">
+                        <span class="summary-label">Period:</span>
+                        <span class="summary-value">${summary.days} days</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="summary-label">Avg Max Temp:</span>
+                        <span class="summary-value">${avgMaxTemp.toFixed(1)}°C</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="summary-label">Avg Min Temp:</span>
+                        <span class="summary-value">${avgMinTemp.toFixed(1)}°C</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="summary-label">Avg Humidity:</span>
+                        <span class="summary-value">${avgHumidity.toFixed(0)}%</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="summary-label">Avg Wind Speed:</span>
+                        <span class="summary-value">${avgWindSpeed.toFixed(1)} km/h</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="summary-label">Typical Conditions:</span>
+                        <span class="summary-value">${mostCommonCondition}</span>
+                    </div>
+                `;
+                
+                summaryContainer.appendChild(card);
+            });
+        }
+        
+        // Initialize the report
+        document.addEventListener('DOMContentLoaded', function() {
+            const weatherData = getWeatherData();
+            
+            if (!weatherData || weatherData.length === 0) {
+                document.body.innerHTML += '<div class="error">No weather data found. Please search for a city on the main page first.</div>';
+                return;
+            }
+            
+            console.log('Weather data loaded:', weatherData);
+            
+            // Create both views
+            createTableView(weatherData);
+            createSummaryView(weatherData);
+            
+            // Show the summary tab by default
+            showTab('summary');
+        });
+    </script>
+</body>
+</html>

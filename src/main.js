@@ -6,8 +6,10 @@ let isFirstLoad = true
 async function loadWeather(city) {
     const apiKey = '63F9CQHTVSCUJ7HK5SDNNZF99'
     const resp = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=metric&key=${apiKey}&contentType=json`)
+    const reportButton = document.querySelector('.report-button');
     if (!resp.ok) {
         alert('City not found')
+        if (reportButton) reportButton.disabled = true;
         return
     }
     const data = await resp.json()
@@ -20,6 +22,7 @@ async function loadWeather(city) {
     updateDetailedInfo(0)
     renderCarousel()
     console.log(data)
+    if (reportButton) reportButton.disabled = false;
 }
 
 function updateDetailedInfo(index) {
@@ -210,5 +213,37 @@ function setUpPopupContent(index) {
     popupVisibility.textContent = day.visibility + 'km'
     popupPressure.textContent = day.pressure + 'hPa'
 }
+
+function exportWeatherDataForReport() {
+    if (!daysData || daysData.length === 0) {
+        return;
+    }
+    
+    const reportData = daysData.map(day => ({
+        City: currentCity || 'Unknown',
+        Country: currentAddress ? currentAddress.split(',').pop().trim() : 'Unknown',
+        Date: day.datetime,
+        MaxTemp: Math.round(day.tempmax),
+        MinTemp: Math.round(day.tempmin),
+        Humidity: day.humidity,
+        WindSpeed: Math.round(day.windspeed),
+        Conditions: day.conditions,
+        Description: day.description,
+        Pressure: day.pressure,
+        Visibility: day.visibility
+    }))
+    
+    localStorage.setItem('weatherReportData', JSON.stringify(reportData))
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const reportButton = document.querySelector('.report-button')
+    if (reportButton) {
+        reportButton.addEventListener('click', function() {
+            exportWeatherDataForReport()
+            window.open('./report.html', '_blank')
+        })
+    }
+})
 
 loadWeather('Mankivka')

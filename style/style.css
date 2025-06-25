@@ -70,6 +70,29 @@ body {
     transform: translateY(0);
 }
 
+.report-button {
+    flex: 0 0 auto;
+    border: none;
+    color: white;
+    background-color: #28a745;
+    border-radius: 8px;
+    margin: 15px 15px 15px 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.report-button:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+}
+
+.report-button:active {
+    transform: translateY(0);
+}
+
 .current-day-info {
     position: relative;
     display: flex;
@@ -253,7 +276,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Popup Styles */
 .popup {
     display: none;
     position: fixed;
