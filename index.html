@@ -35,7 +35,7 @@
                     
                     <div class="main-picture">
                         <picture>
-                            <img src="./assets/sun.png" alt="Image representing today's weather" width="150">
+                            <img src="./assets/sun.png" alt="Image representing today's weather" width="200">
                         </picture>
                     </div>
                 </div>
@@ -43,7 +43,8 @@
                     <span class="wind-detail">Wind: 13 km/h</span>
                     <span class="humidity-detail">Humidity: 56%</span>
                 </div>
-            </div>              <div class="carousel-container">
+            </div>              
+            <div class="carousel-container">
                 <ul class="carousel">
                     <li class="carousel-item">
                         <div class="weather-brief">
@@ -111,5 +112,52 @@
             </div>
         </section>
     </main>
+
+    <div class="popup">
+        <div class="popup-content">
+            <button class="popup-close">&times;</button>
+            <div class="popup-header">
+                <h3 class="popup-city">City Name</h3>
+                <span class="popup-date">Date</span>
+            </div>
+            <div class="popup-body">
+                <p class="popup-description">Weather description</p>
+                <div class="popup-details">
+                    <div class="popup-row">
+                        <span>Max Temperature:</span>
+                        <span class="max-real">25°C</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Min Temperature:</span>
+                        <span class="min-real">15°C</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Feels like Max:</span>
+                        <span class="max-feels">28°C</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Feels like Min:</span>
+                        <span class="min-feels">12°C</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Sunrise:</span>
+                        <span class="sunrise">06:30</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Sunset:</span>
+                        <span class="sunset">19:45</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Visibility:</span>
+                        <span class="visibility">10km</span>
+                    </div>
+                    <div class="popup-row">
+                        <span>Pressure:</span>
+                        <span class="pressure">1013hPa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
